@@ -106,13 +106,17 @@ export async function createApp() {
       loaderBin:
         wineTag == "crossover"
           ? await getCrossoverBinary()
-          : wineTag == "whisky-dxvk" || wineTag == "whisky" || wineTag == "wine7.7-gptk"
+          : wineTag == "whisky-dxvk" ||
+            wineTag == "whisky" ||
+            wineTag == "wine7.7-gptk"
           ? await getWhiskyBinary()
           : await getCorrectWineBinary(),
       prefix: prefixPath,
       attributes: {
         isGamePortingToolkit:
-          wineTag == "whisky" || wineTag == "wine7.7-gptk"|| wineTag.indexOf("gptk") >= 0,
+          wineTag == "whisky" ||
+          wineTag == "wine7.7-gptk" ||
+          wineTag.indexOf("gptk") >= 0,
       },
     });
     return await createLauncher({
