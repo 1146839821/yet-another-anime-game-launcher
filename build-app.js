@@ -51,6 +51,14 @@ const { IconIcns } = require("@shockpkg/icon-encoder");
       bundleId = config.applicationId + ".scz.cn";
       appDistributionName = config.cli.binaryName + " SCZ";
       break;
+    case "napos":
+      bundleId = config.applicationId + ".nap.os";
+      appDistributionName = config.cli.binaryName + " ZZZ OS";
+      break;
+    case "napcn":
+      bundleId = config.applicationId + ".nap.cn";
+      appDistributionName = config.cli.binaryName + " ZZZ";
+      break;
     default:
       throw new Error("YAAGL_CHANNEL_CLIENT env required");
   }
