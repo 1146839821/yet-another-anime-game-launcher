@@ -6,8 +6,8 @@ import type { CreateClientOptions } from "./shared";
 import { createCBJQChannelClient } from "./seasun/cbjq";
 
 export const DEFAULT_WINE_DISTRO_URL =
-  "https://github.com/3Shain/wine/releases/download/v9.2-mingw/wine.tar.gz";
-export const DEFAULT_WINE_DISTRO_TAG = "v9.2-mingw";
+  "https://github.com/1146839821/wine/releases/download/0.0.1/wine.tar.gz";
+export const DEFAULT_WINE_DISTRO_TAG = "wine7.7-gptk";
 
 /** It's broken due to AntiCheat */
 const SERVER_DEFINITION: Server = {

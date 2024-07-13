@@ -61,7 +61,6 @@ export const vi_VN: typeof zh_CN = {
   SETTING: "Cài đặt",
   SETTING_WINE_VERSION: "Phiên bản Wine",
   SETTING_ASYNC_DXVK: "DXVK Asynchronous Shader Compiling",
-  SETTING_MSYNC: "MSYNC",
   SETTING_ENABLED: "Bật",
   SETTING_DXVK_HUD: "DXVK HUD",
   SETTING_DXVK_HUD_NONE: "Không",

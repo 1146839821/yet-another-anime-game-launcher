@@ -62,7 +62,6 @@ export const es_ES: typeof zh_CN = {
   SETTING: "Ajustes",
   SETTING_WINE_VERSION: "Distribución de Wine",
   SETTING_ASYNC_DXVK: "Compilación Asincrónica de Shaders DXVK",
-  SETTING_MSYNC: "MSYNC",
   SETTING_ENABLED: "Habilitado",
   SETTING_DXVK_HUD: "HUD DXVK",
   SETTING_DXVK_HUD_NONE: "Nada",

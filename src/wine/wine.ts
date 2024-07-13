@@ -13,6 +13,8 @@ import {
 } from "@utils";
 import cpu_db from "../constants/cpu_db";
 import { dirname, join } from "path-browserify";
+import { Config } from "@config";
+import { config } from "process";
 
 export interface WineAttribute {
   isGamePortingToolkit: boolean;
@@ -80,7 +82,8 @@ export async function createWine(options: {
 
   function getEnvironmentVariables() {
     return {
-      WINEESYNC: "1",
+      WINEESYNC: "0",
+      WINEMSYNC: "1",
       WINEDEBUG: "fixme-all,err-unwind,+timestamp",
       WINEPREFIX: options.prefix,
     };

@@ -58,7 +58,6 @@ export const ko_KR: typeof zh_CN = {
   SETTING: "설정",
   SETTING_WINE_VERSION: "Wine 버전",
   SETTING_ASYNC_DXVK: "DXVK 비동기 셰이더 컴파일",
-  SETTING_MSYNC: "MSYNC",
   SETTING_ENABLED: "활성화",
   SETTING_DXVK_HUD: "DXVK HUD",
   SETTING_DXVK_HUD_NONE: "없음",

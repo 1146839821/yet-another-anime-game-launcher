@@ -59,7 +59,6 @@ export const ru_RU: typeof zh_CN = {
   SETTING: "Настройки",
   SETTING_WINE_VERSION: "Дистрибутив Wine",
   SETTING_ASYNC_DXVK: "Асинхронная компиляция шейдера DXVK",
-  SETTING_MSYNC: "MSYNC",
   SETTING_ENABLED: "Включено",
   SETTING_DXVK_HUD: "Оверлэй DXVK",
   SETTING_DXVK_HUD_NONE: "Ничего",
