@@ -56,6 +56,7 @@ export const zh_CN = {
   SETTING: "设置",
   SETTING_WINE_VERSION: "Wine 版本",
   SETTING_ASYNC_DXVK: "DXVK Shader异步编译",
+  SETTING_MSYNC: "MSYNC",
   SETTING_ENABLED: "启用",
   SETTING_DXVK_HUD: "DXVK HUD",
   SETTING_DXVK_HUD_NONE: "不显示",

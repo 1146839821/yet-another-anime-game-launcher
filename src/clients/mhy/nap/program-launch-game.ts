@@ -87,7 +87,7 @@ ${await (async () => {
           MVK_ALLOW_METAL_FENCES: "1",
           WINEDLLOVERRIDES: "d3d11,dxgi=n,b",
           DXVK_ASYNC: config.dxvkAsync ? "1" : "",
-          WINEMSYNC: config.WINEMSYNC ? "1" : "",
+          WINE_MSYNC: config.WINEMSYNC ? "1" : "",
           ...(config.dxvkHud == ""
             ? {}
             : {
