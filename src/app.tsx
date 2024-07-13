@@ -107,8 +107,7 @@ export async function createApp() {
         wineTag == "crossover"
           ? await getCrossoverBinary()
           : wineTag == "whisky-dxvk" ||
-            wineTag == "whisky" ||
-            wineTag == "wine7.7-gptk"
+            wineTag == "whisky"
           ? await getWhiskyBinary()
           : await getCorrectWineBinary(),
       prefix: prefixPath,
