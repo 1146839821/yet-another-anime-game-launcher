@@ -15,7 +15,7 @@ import {
 } from "./secret";
 
 export const DEFAULT_WINE_DISTRO_URL =
-  "https://github.com/1146839821/wine/releases/download/HSR/wine.tar.gz";
+  "https://github.com/1146839821/wine/releases/download/0.0.1/wine.tar.gz";
 export const DEFAULT_WINE_DISTRO_TAG = "wine7.7-gptk";
 
 export const SERVER_DEFINITION: Server = {
