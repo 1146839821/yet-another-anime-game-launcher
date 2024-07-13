@@ -61,8 +61,8 @@ export async function createWineDistroConfig({
         url: "not_applicable",
       },
     ].filter(
-      x => x.tag != "crossover" && x.tag != "whisky-dxvk" && x.tag != "whisky"
-    )
+      x => x.tag != "crossover" && x.tag != "whisky-dxvk" && x.tag != "whisky",
+    ),
   );
   (async () => {
     const versions = await wineVersionChecker.getAllReleases();
@@ -83,7 +83,7 @@ export async function createWineDistroConfig({
         "wine_update_url",
         tag == "crossover" || tag == "whisky-dxvk" || tag == "whisky"
           ? "not_appliable"
-          : arrayFind(wineVersions(), x => x.tag == tag).url
+          : arrayFind(wineVersions(), x => x.tag == tag).url,
       );
       await _safeRelaunch();
     }
@@ -138,7 +138,7 @@ export async function createWineDistroConfig({
             variant="left-accent"
             onClick={() =>
               open(
-                "https://github.com/3Shain/yet-another-anime-game-launcher/wiki/CrossOver:-use-latest-MoltenVK"
+                "https://github.com/3Shain/yet-another-anime-game-launcher/wiki/CrossOver:-use-latest-MoltenVK",
               )
             }
           >

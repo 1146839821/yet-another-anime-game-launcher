@@ -38,7 +38,7 @@ export async function createWineVersionChecker(github: Github) {
           tag: x.tag_name,
           url: github.acceleratedPath(
             arrayFind(x.assets, x => x.name === "wine.tar.gz")
-              .browser_download_url
+              .browser_download_url,
           ),
         };
       });
@@ -50,8 +50,7 @@ export async function createWineVersionChecker(github: Github) {
   };
 }
 
-export type WineVersionChecker = ReturnType<
-  typeof createWineVersionChecker
-> extends Promise<infer T>
-  ? T
-  : never;
+export type WineVersionChecker =
+  ReturnType<typeof createWineVersionChecker> extends Promise<infer T>
+    ? T
+    : never;

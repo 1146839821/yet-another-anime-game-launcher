@@ -55,7 +55,7 @@ export async function* launchGameProgram({
 cd "%~dp0"
 copy "${wine.toWinePath(join(gameDir, atob("bWh5cHJvdDMuc3lz")))}" "%TEMP%\\"
 copy "${wine.toWinePath(
-    join(gameDir, atob("SG9Zb0tQcm90ZWN0LnN5cw=="))
+    join(gameDir, atob("SG9Zb0tQcm90ZWN0LnN5cw==")),
   )}" "%WINDIR%\\system32\\"
 regedit retina.reg
 regedit left_cmd.reg
@@ -63,9 +63,9 @@ cd /d "${wine.toWinePath(gameDir)}"
 ${await (async () => {
   if (config.fpsUnlock !== "default") {
     return `"${wine.toWinePath(
-      resolve("./fpsunlock/genshin-force-fps.exe")
+      resolve("./fpsunlock/genshin-force-fps.exe"),
     )}" -f ${config.fpsUnlock} -o "${wine.toWinePath(
-      join(gameDir, gameExecutable)
+      join(gameDir, gameExecutable),
     )}"`;
   } else {
     return `"${wine.toWinePath(join(gameDir, gameExecutable))}"`;
@@ -97,7 +97,7 @@ ${await (async () => {
           DXVK_LOG_PATH: yaaglDir,
           DXVK_CONFIG_FILE: join(yaaglDir, "dxvk.conf"),
         },
-        logfile
+        logfile,
       ),
       (async () => {
         // while (processRunning) {

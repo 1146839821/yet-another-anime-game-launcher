@@ -87,18 +87,17 @@ export async function createApp() {
       await locale.prompt(
         "NEW_VERSION_AVALIABLE",
         "NEW_VERSION_AVALIABLE_DESC",
-        [version, description]
+        [version, description],
       )
     ) {
       return createCommonUpdateUI(locale, () =>
-        downloadProgram(aria2, downloadUrl)
+        downloadProgram(aria2, downloadUrl),
       );
     }
   }
 
-  const { wineReady, wineUpdate, wineUpdateTag, wineTag } = await checkWine(
-    github
-  );
+  const { wineReady, wineUpdate, wineUpdateTag, wineTag } =
+    await checkWine(github);
   const prefixPath = resolve("./wineprefix"); // CHECK: hardcoded path?
 
   if (wineReady) {
@@ -106,10 +105,9 @@ export async function createApp() {
       loaderBin:
         wineTag == "crossover"
           ? await getCrossoverBinary()
-          : wineTag == "whisky-dxvk" ||
-            wineTag == "whisky"
-          ? await getWhiskyBinary()
-          : await getCorrectWineBinary(),
+          : wineTag == "whisky-dxvk" || wineTag == "whisky"
+            ? await getWhiskyBinary()
+            : await getCorrectWineBinary(),
       prefix: prefixPath,
       attributes: {
         isGamePortingToolkit:

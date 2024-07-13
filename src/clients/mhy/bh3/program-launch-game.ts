@@ -55,7 +55,7 @@ regedit retina.reg
 regedit left_cmd.reg
 cd /d "${wine.toWinePath(gameDir)}"
 "${wine.toWinePath(resolve("./jadeite/jadeite.exe"))}" "${wine.toWinePath(
-    join(gameDir, gameExecutable)
+    join(gameDir, gameExecutable),
   )}"`;
   await writeFile(resolve("config.bat"), cmd);
   yield* patchProgram(gameDir, wine, server, config);
@@ -83,7 +83,7 @@ cd /d "${wine.toWinePath(gameDir)}"
           DXVK_LOG_PATH: yaaglDir,
           DXVK_CONFIG_FILE: join(yaaglDir, "dxvk.conf"),
         },
-        logfile
+        logfile,
       ),
       (async () => {
         // while (processRunning) {

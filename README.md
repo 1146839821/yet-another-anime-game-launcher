@@ -1,18 +1,19 @@
 # Yet another anime game launcher (Yaagl)
 
-
-|  |  |
-| --- | --- |
+|                       |                     |
+| --------------------- | ------------------- |
 | ![](/docs/hk4e41.png) | ![](/docs/bh66.png) |
-| ![](/docs/hsr105.png) |  |
+| ![](/docs/hsr105.png) |                     |
 
+## Current Supported Game Version:
 
-## Current Supported Game Version: 
-### GI: 4.6.0 OS/CN **
+### GI: 4.6.0 OS/CN \*\*
+
 ### ~~HI: 7.3 Global~~
+
 ### ~~HSR: 2.0.0 OS/CN (For Intel Mac Only)~~
 
-### **: For Apple Silicon users: Sonoma 14.4 is required
+### \*\*: For Apple Silicon users: Sonoma 14.4 is required
 
 <!-- ## Policy
 
@@ -43,6 +44,7 @@ Use it at your own risk. Or enjoying it with a new f2p account.
 ## Development
 
 ### Setup
+
 ```sh
 git clone https://github.com/3Shain/yet-another-anime-game-launcher
 cd yet-another-anime-game-launcher
@@ -51,8 +53,8 @@ pnpm install
 pnpm exec neu update
 ```
 
-
 ### Run
+
 ```sh
 # CN
 pnpm start
@@ -61,23 +63,26 @@ pnpm run start-hk4eos
 ```
 
 ### Build
+
 ```sh
 node ./build-app.js
 ```
 
 ## Uninstall (completely)
+
 1. Drag app to the bin
 2. Delete folder `~/Library/Application Support/Yaagl` or `~/Library/Application Support/Yaagl OS` if you are using oversea version
 
 ## Related projects
 
-* Yaagl is using custom `wine (crossover)` builds from [3Shain/winecx](https://github.com/3Shain/winecx)
-* Custom `neutralinojs` binary from [3Shain/neutralinojs](https://github.com/3Shain/neutralinojs)
-* [DXVK-macOS](https://github.com/Gcenx/DXVK-macOS)
-* [MoltenVK](https://github.com/KhronosGroup/MoltenVK)
+- Yaagl is using custom `wine (crossover)` builds from [3Shain/winecx](https://github.com/3Shain/winecx)
+- Custom `neutralinojs` binary from [3Shain/neutralinojs](https://github.com/3Shain/neutralinojs)
+- [DXVK-macOS](https://github.com/Gcenx/DXVK-macOS)
+- [MoltenVK](https://github.com/KhronosGroup/MoltenVK)
 
 ## Special thanks
-* [An anime game launcher](https://github.com/an-anime-team/an-anime-game-launcher) for Linux users
-* Krock, the game running on macOS can not come true without his patch (you can find the link to his work in this repository, while you have to make a little effort ;) )
 
-* mkrsym1, tackled IMO the most challenging AC component. It's a really remarkable and mind-blowing achievement.
+- [An anime game launcher](https://github.com/an-anime-team/an-anime-game-launcher) for Linux users
+- Krock, the game running on macOS can not come true without his patch (you can find the link to his work in this repository, while you have to make a little effort ;) )
+
+- mkrsym1, tackled IMO the most challenging AC component. It's a really remarkable and mind-blowing achievement.

@@ -57,7 +57,7 @@ export async function createWineInstallProgram({
         yield [
           "setProgress",
           Number(
-            (progress.completedLength * BigInt(100)) / progress.totalLength
+            (progress.completedLength * BigInt(100)) / progress.totalLength,
           ),
         ];
         yield [
@@ -82,8 +82,8 @@ export async function createWineInstallProgram({
       wineTag === "crossover"
         ? await getCrossoverBinary()
         : wineTag === "whisky-dxvk" || wineTag === "whisky"
-        ? await getWhiskyBinary()
-        : await getCorrectWineBinary();
+          ? await getWhiskyBinary()
+          : await getCorrectWineBinary();
     const wine = await createWine({
       loaderBin: wine64Bin,
       prefix: wineAbsPrefix,
@@ -104,13 +104,13 @@ export async function createWineInstallProgram({
           "Z:" + `${CROSSOVER_DATA}/crossover.inf`.replaceAll("/", "\\"),
         ],
         {},
-        "/dev/null"
+        "/dev/null",
       );
       await wine.exec(
         "rundll32",
         ["mscoree.dll,wine_install_mono"],
         {},
-        "/dev/null"
+        "/dev/null",
       );
     }
 

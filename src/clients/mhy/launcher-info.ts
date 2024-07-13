@@ -173,5 +173,5 @@ export const VoicePacks = {
 };
 
 export const VoicePackNames = Object.fromEntries(
-  Object.entries(VoicePacks).map(([k, v]) => [v, k])
+  Object.entries(VoicePacks).map(([k, v]) => [v, k]),
 );

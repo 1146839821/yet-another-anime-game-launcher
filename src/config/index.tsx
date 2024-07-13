@@ -50,7 +50,7 @@ export async function createConfiguration({
   gameInstallDir: () => string;
   configForChannelClient: (
     locale: Locale,
-    config: Partial<Config>
+    config: Partial<Config>,
   ) => Promise<() => JSXElement>;
 }) {
   const config: Partial<Config> = {};
@@ -191,7 +191,7 @@ export async function createConfiguration({
                           ["open", gameInstallDir()],
                           {},
                           false,
-                          "/dev/null"
+                          "/dev/null",
                         )
                       }
                     >
@@ -205,7 +205,7 @@ export async function createConfiguration({
                           ["open", resolve("./")],
                           {},
                           false,
-                          "/dev/null"
+                          "/dev/null",
                         )
                       }
                     >

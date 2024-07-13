@@ -21,13 +21,13 @@ import { join } from "path-browserify";
 const CURRENT_MVK_VERSION = "1.2.2";
 
 export async function* checkAndDownloadMoltenVK(
-  aria2: Aria2
+  aria2: Aria2,
 ): CommonUpdateProgram {
   if (
     (await fileOrDirExists("./moltenvk/libMoltenVK.dylib")) &&
     eq(
       CURRENT_MVK_VERSION,
-      await getKeyOrDefault("installed_moltenvk_version", "0.0.0")
+      await getKeyOrDefault("installed_moltenvk_version", "0.0.0"),
     )
   ) {
     return;
@@ -60,7 +60,7 @@ export async function* checkAndDownloadDXVK(aria2: Aria2): CommonUpdateProgram {
   if (
     eq(
       CURRENT_DXVK_VERSION,
-      await getKeyOrDefault("installed_dxvk_version", "0.0.0")
+      await getKeyOrDefault("installed_dxvk_version", "0.0.0"),
     )
   ) {
     return;
@@ -89,12 +89,12 @@ export async function* checkAndDownloadDXVK(aria2: Aria2): CommonUpdateProgram {
 }
 
 export async function* checkAndDownloadJadeite(
-  aria2: Aria2
+  aria2: Aria2,
 ): CommonUpdateProgram {
   if (
     eq(
       CURRENT_JADEITE_VERSION,
-      await getKeyOrDefault("installed_jadeite_version", "0.0.0")
+      await getKeyOrDefault("installed_jadeite_version", "0.0.0"),
     )
   ) {
     return;
@@ -121,7 +121,7 @@ export async function* checkAndDownloadJadeite(
 
   for await (const [dec, total] of doStreamUnzip(
     resolve(`./jadeite/archive.zip`),
-    resolve(`./jadeite`)
+    resolve(`./jadeite`),
   )) {
     yield ["setProgress", (dec / total) * 100];
   }
@@ -132,13 +132,13 @@ export async function* checkAndDownloadJadeite(
 const CURRENT_FPSUNLOCK_VERSION = "0.1.2";
 
 export async function* checkAndDownloadFpsUnlocker(
-  aria2: Aria2
+  aria2: Aria2,
 ): CommonUpdateProgram {
   if (
     (await fileOrDirExists("./fpsunlock/genshin-force-fps.exe")) &&
     eq(
       CURRENT_FPSUNLOCK_VERSION,
-      await getKeyOrDefault("installed_fps_unlock", "0.0.0")
+      await getKeyOrDefault("installed_fps_unlock", "0.0.0"),
     )
   ) {
     return;
@@ -168,14 +168,14 @@ const CURRENT_RESHADE_VERSION = "5.8.0";
 export async function* checkAndDownloadReshade(
   aria2: Aria2,
   wine: Wine,
-  gameDir: string
+  gameDir: string,
 ): CommonUpdateProgram {
   const reshaderDir = resolve("./reshade");
 
   if (
     eq(
       CURRENT_RESHADE_VERSION,
-      await getKeyOrDefault("installed_reshade", "0.0.0")
+      await getKeyOrDefault("installed_reshade", "0.0.0"),
     )
   ) {
     return;
@@ -229,21 +229,21 @@ export async function* checkAndDownloadReshade(
 
   for await (const [dec, total] of doStreamUnzip(
     join(reshaderDir, "install.zip"),
-    reshaderDir
+    reshaderDir,
   )) {
     yield ["setProgress", (dec / total) * 100];
   }
 
   await forceMove(
     join(reshaderDir, "ReShade64.dll"),
-    join(reshaderDir, "dxgi.dll")
+    join(reshaderDir, "dxgi.dll"),
   );
 
   writeFile(
     join(gameDir, "ReShade.ini"),
     `[GENERAL]
 EffectSearchPaths=${wine.toWinePath(resolve("./reshade/Shaders"))}
-TextureSearchPaths=${wine.toWinePath(resolve("./reshade/Textures"))}`
+TextureSearchPaths=${wine.toWinePath(resolve("./reshade/Textures"))}`,
   );
 
   setKey("installed_reshade", CURRENT_RESHADE_VERSION);

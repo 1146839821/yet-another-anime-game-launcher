@@ -40,7 +40,7 @@ const dxvkFiles = [
 export async function* patchProgram(
   gameDir: string,
   wine: Wine,
-  config: Config
+  config: Config,
 ): CommonUpdateProgram {
   if ((await getKeyOrDefault("patched", "NOTFOUND")) != "NOTFOUND") {
     return;
@@ -50,7 +50,7 @@ export async function* patchProgram(
     for (const f of dxvkFiles) {
       await forceMove(
         join(system32Dir, f.name + ".dll"),
-        join(system32Dir, f.name + ".dll.bak")
+        join(system32Dir, f.name + ".dll.bak"),
       );
       await cp(`./dxvk/${f.name}.dll`, join(system32Dir, f.name + ".dll"));
     }
@@ -59,7 +59,7 @@ export async function* patchProgram(
     await cp(resolve("./reshade/dxgi.dll"), join(gameDir, "dxgi.dll"));
     await cp(
       resolve("./reshade/d3dcompiler_47.dll"),
-      join(gameDir, "d3dcompiler_47.dll")
+      join(gameDir, "d3dcompiler_47.dll"),
     );
   }
   setKey("patched", "1");
@@ -68,7 +68,7 @@ export async function* patchProgram(
 export async function* patchRevertProgram(
   gameDir: string,
   wine: Wine,
-  config: Config
+  config: Config,
 ): CommonUpdateProgram {
   try {
     await getKey("patched");
@@ -80,7 +80,7 @@ export async function* patchRevertProgram(
     for (const f of dxvkFiles) {
       await forceMove(
         join(system32Dir, f.name + ".dll.bak"),
-        join(system32Dir, f.name + ".dll")
+        join(system32Dir, f.name + ".dll"),
       );
     }
   }

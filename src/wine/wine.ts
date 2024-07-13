@@ -33,7 +33,7 @@ export async function createWine(options: {
     program: string,
     args: string[],
     env?: { [key: string]: string },
-    log_file: string | undefined = undefined
+    log_file: string | undefined = undefined,
   ) {
     return await unixExec(
       program == "copy"
@@ -44,7 +44,7 @@ export async function createWine(options: {
         ...(env ?? {}),
       },
       false,
-      log_file
+      log_file,
     );
   }
 
@@ -52,7 +52,7 @@ export async function createWine(options: {
     program: string,
     args: string[],
     env?: { [key: string]: string },
-    log_file: string | undefined = undefined
+    log_file: string | undefined = undefined,
   ) {
     return await unixExec2(
       program == "copy"
@@ -63,7 +63,7 @@ export async function createWine(options: {
         ...(env ?? {}),
       },
       false,
-      log_file
+      log_file,
     );
   }
 
@@ -72,7 +72,7 @@ export async function createWine(options: {
       [join(dirname(options.loaderBin), "wineserver"), "-w"],
       {
         ...getEnvironmentVariables(),
-      }
+      },
     );
   }
 
@@ -113,7 +113,7 @@ export async function createWine(options: {
       ],
       {},
       false,
-      "/dev/null"
+      "/dev/null",
     );
   }
 
@@ -161,6 +161,5 @@ export async function getCorrectWineBinary() {
   }
 }
 
-export type Wine = ReturnType<typeof createWine> extends Promise<infer T>
-  ? T
-  : never;
+export type Wine =
+  ReturnType<typeof createWine> extends Promise<infer T> ? T : never;
