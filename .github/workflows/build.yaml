@@ -42,6 +42,7 @@ jobs:
       - name: Build app
         run: |
           ./configure.sh
+          npx prettier --write .
           pnpm run format-check
           pnpm run lint
           YAAGL_CHANNEL_CLIENT=hk4ecn node ./build-app.js
