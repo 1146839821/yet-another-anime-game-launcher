@@ -25,6 +25,7 @@ import { Locale } from "../locale";
 import { Wine, WineVersionChecker } from "../wine";
 import { Config } from "./config-def";
 import { createDxvkAsyncConfig } from "./dxvk-async";
+import { createMsyncConfig } from "./msyn";
 import { createDxvkHUDConfig } from "./dxvk-hud";
 import { createMetalHUDConfig } from "./metal-hud";
 import { createGameInstallDirConfig } from "./game-install-dir";
@@ -60,6 +61,7 @@ export async function createConfiguration({
     wineVersionChecker,
   });
   const [DA] = await createDxvkAsyncConfig({ locale, config });
+  const [DM] = await createMsyncConfig({ locale, config });
   const [DH] = await createDxvkHUDConfig({ locale, config });
   const [MH] = await createMetalHUDConfig({ locale, config });
   const [R] = await createRetinaConfig({ locale, config });
@@ -138,6 +140,7 @@ export async function createConfiguration({
                       <GID />
                       <Divider />
                       <DA />
+                      <DM />
                       <DH />
                       <MH />
                       <R />
