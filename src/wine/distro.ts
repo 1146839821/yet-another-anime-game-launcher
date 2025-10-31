@@ -29,6 +29,15 @@ const YAAGL_BUILTIN_WINE: WineDistribution[] = [
     },
   },
   {
+    id: "10.0-rc4",
+    displayName: "Wine 10.0-rc4 DXMT",
+    remoteUrl:
+      "https://github.com/1146839821/wine/releases/download/wine-10.0-rc4/wine.tar.gz",
+    attributes: {
+      renderBackend: "dxmt",
+    },
+  },
+  {
     id: "9.9-dxvk",
     displayName: "Wine 9.9 DXVK",
     remoteUrl:

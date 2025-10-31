@@ -21,8 +21,8 @@ import {
 } from "./secret";
 
 export const DEFAULT_WINE_DISTRO_URL =
-  "https://github.com/3Shain/wine/releases/download/v9.9-mingw/wine.tar.gz";
-export const DEFAULT_WINE_DISTRO_TAG = "9.9-dxmt";
+  "https://github.com/1146839821/wine/releases/download/wine-10.0-rc4/wine.tar.gz";
+export const DEFAULT_WINE_DISTRO_TAG = "10.0-rc4";
 
 const SERVER_DEFINITION: Server = {
   id: "hk4e_cn",
