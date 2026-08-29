@@ -121,6 +121,9 @@ export const ja_JP: typeof zh_CN = {
     "このプロキシ設定はゲームのみに適用され、ランチャー全体には適用されません。",
 
   SETTING_TURN_ON_STEAM_PATCH: "Steamパッチ有効",
+  SETTING_DXMT_VERSION: "DXMT Version",
+  SETTING_USE_D3D12: "Use D3D12 to run the game",
+  SETTING_ENABLE_DLSS: "Enable DLSS",
 
   UPDATE_PROMPT_IGNORE: "更新無視",
   SETTING_CHECK_UPDATE: "YAAGL更新を確認する",

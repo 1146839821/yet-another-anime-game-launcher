@@ -79,3 +79,25 @@ export interface GithubReleaseAssetsInfo {
 }
 
 export type GithubReleases = GithubReleaseInfo[];
+
+export interface GithubWorkflowRunInfo {
+  id: number;
+  run_number: number;
+  display_title: string;
+  head_branch: string;
+  status: string;
+  conclusion: string | null;
+  created_at: string;
+  check_suite_id: number | null;
+}
+
+export interface GithubActionsArtifactInfo {
+  id: number;
+  name: string;
+  expired: boolean;
+  created_at: string;
+  archive_download_url: string;
+  workflow_run?: {
+    id: number;
+  };
+}

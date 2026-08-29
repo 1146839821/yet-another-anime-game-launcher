@@ -115,6 +115,9 @@ export const zh_CN = {
     "The proxy only applies to the game, not to the whole launcher.", // TODO: Translate
 
   SETTING_TURN_ON_STEAM_PATCH: "Enable Steam Patch", // TODO: Translate
+  SETTING_DXMT_VERSION: "DXMT 构建版本",
+  SETTING_USE_D3D12: "使用 D3D12 运行游戏",
+  SETTING_ENABLE_DLSS: "启用 DLSS",
 
   UPDATE_PROMPT_IGNORE: "忽略此更新",
   SETTING_CHECK_UPDATE: "检查 YAAGL 更新",

@@ -20,7 +20,12 @@ import {
 import { Config } from "@config";
 import { disableUnityFeature } from "./unity";
 import { Wine } from "@wine";
-import { DXMT_FILES, DXVK_FILES } from "src/downloadable-resource";
+import {
+  DXMT_FILES,
+  DXMT_FILES_WITH_D3D12,
+  DXMT_I386_FILES,
+  DXVK_FILES,
+} from "src/downloadable-resource";
 
 export async function putLocal(url: string, dest: string) {
   return await writeBinary(dest, await (await fetch(url)).arrayBuffer());
@@ -66,32 +71,45 @@ export async function* patchProgram(
   const system32Dir = join(wine.prefix, "drive_c", "windows", "system32");
   const syswow64Dir = join(wine.prefix, "drive_c", "windows", "syswow64");
 
-  for (const f of DXMT_FILES) {
-    const wineLibPath = resolve(`./wine/lib/wine/x86_64-windows/${f}`);
-    await forceMove(wineLibPath, wineLibPath + ".bak");
-    await cp(`./dxmt/${f}`, wineLibPath);
+  await replaceDXMTFiles(
+    "x86_64-windows",
+    config.useD3D12 ? DXMT_FILES_WITH_D3D12 : DXMT_FILES
+  );
+
+  const i386WineDir = resolve("./wine/lib/wine/i386-windows");
+  const i386DXMTDir = resolve("./dxmt/i386-windows");
+  if (
+    (await fileOrDirExists(i386WineDir)) &&
+    (await fileOrDirExists(i386DXMTDir))
+  ) {
+    await replaceDXMTFiles("i386-windows", DXMT_I386_FILES);
+    await replaceDXMTFile("i386-windows", "winemetal.dll");
   }
 
   // winemetal files always go to Wine lib directories
+  const winemetalDll = await findDXMTFile("x86_64-windows", "winemetal.dll");
+  if (!winemetalDll) {
+    throw new Error("DXMT build is missing x86_64-windows/winemetal.dll");
+  }
   await cp(
-    `./dxmt/winemetal.dll`,
+    winemetalDll,
     resolve("./wine/lib/wine/x86_64-windows/winemetal.dll")
   );
 
-  await cp(
-    `./dxmt/winemetal.so`,
-    resolve("./wine/lib/wine/x86_64-unix/winemetal.so")
-  );
+  const winemetalSo = await findDXMTFile("x86_64-unix", "winemetal.so");
+  if (!winemetalSo) {
+    throw new Error("DXMT build is missing x86_64-unix/winemetal.so");
+  }
+  await cp(winemetalSo, resolve("./wine/lib/wine/x86_64-unix/winemetal.so"));
 
   // winemetal.dll also to system32 for both native and builtin
-  await cp(`./dxmt/winemetal.dll`, join(system32Dir, "winemetal.dll"));
+  await cp(winemetalDll, join(system32Dir, "winemetal.dll"));
 
-  if (server.id.startsWith("hkrpg")) {
-    await cp(
-      `./dxmt/nvngx.dll`,
-      resolve("./wine/lib/wine/x86_64-windows/nvngx.dll")
-    );
-    await cp(`./dxmt/nvngx.dll`, join(system32Dir, "nvngx.dll"));
+  if (server.id.startsWith("hkrpg") || config.enableDLSS) {
+    await copyDXMTFileToWine("nvngx.dll", system32Dir);
+  }
+  if (config.enableDLSS) {
+    await copyDXMTFileToWine("nvapi64.dll", system32Dir);
   }
 
   if (config.reshade) {
@@ -158,9 +176,20 @@ export async function* patchRevertProgram(
 
   const system32Dir = join(wine.prefix, "drive_c", "windows", "system32");
   if (wine.attributes.renderBackend == "dxmt") {
-    for (const f of DXMT_FILES) {
+    for (const f of DXMT_FILES_WITH_D3D12) {
       const wineLibPath = resolve(`./wine/lib/wine/x86_64-windows/${f}`);
-      await forceMove(wineLibPath + ".bak", wineLibPath);
+      if (await fileOrDirExists(wineLibPath + ".bak")) {
+        await forceMove(wineLibPath + ".bak", wineLibPath);
+      }
+    }
+    const i386WineDir = resolve("./wine/lib/wine/i386-windows");
+    if (await fileOrDirExists(i386WineDir)) {
+      for (const f of [...DXMT_I386_FILES, "winemetal.dll"]) {
+        const wineLibPath = resolve(`./wine/lib/wine/i386-windows/${f}`);
+        if (await fileOrDirExists(wineLibPath + ".bak")) {
+          await forceMove(wineLibPath + ".bak", wineLibPath);
+        }
+      }
     }
   }
   if (config.reshade) {
@@ -168,4 +197,56 @@ export async function* patchRevertProgram(
     await removeFileIfExists(join(gameDir, "d3dcompiler_47.dll"));
   }
   setKey("patched", null);
+}
+
+async function replaceDXMTFiles(
+  architecture: "i386-windows" | "x86_64-windows",
+  files: readonly string[]
+) {
+  for (const file of files) {
+    await replaceDXMTFile(architecture, file);
+  }
+}
+
+async function replaceDXMTFile(
+  architecture: "i386-windows" | "x86_64-windows",
+  file: string
+) {
+  const source = await findDXMTFile(architecture, file);
+  if (!source) {
+    throw new Error(`DXMT build is missing ${architecture}/${file}`);
+  }
+
+  const wineLibPath = resolve(`./wine/lib/wine/${architecture}/${file}`);
+  if (await fileOrDirExists(wineLibPath)) {
+    await forceMove(wineLibPath, wineLibPath + ".bak");
+  }
+  await cp(source, wineLibPath);
+}
+
+async function findDXMTFile(
+  architecture: "i386-windows" | "x86_64-unix" | "x86_64-windows",
+  file: string
+) {
+  const architecturePath = resolve(`./dxmt/${architecture}/${file}`);
+  if (await fileOrDirExists(architecturePath)) return architecturePath;
+
+  // Compatibility with the flattened layout used by older DXMT downloads.
+  if (architecture == "x86_64-windows" || architecture == "x86_64-unix") {
+    const legacyPath = resolve(`./dxmt/${file}`);
+    if (await fileOrDirExists(legacyPath)) return legacyPath;
+  }
+  return null;
+}
+
+async function copyDXMTFileToWine(
+  file: "nvapi64.dll" | "nvngx.dll",
+  system32Dir: string
+) {
+  const source = await findDXMTFile("x86_64-windows", file);
+  if (!source) {
+    throw new Error(`DXMT build is missing x86_64-windows/${file}`);
+  }
+  await cp(source, resolve(`./wine/lib/wine/x86_64-windows/${file}`));
+  await cp(source, join(system32Dir, file));
 }

@@ -133,6 +133,7 @@ export async function createApp() {
         wine,
         aria2,
         locale,
+        github,
       }),
       onCheckUpdate,
     });

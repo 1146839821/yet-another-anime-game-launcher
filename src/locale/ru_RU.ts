@@ -121,6 +121,9 @@ export const ru_RU: typeof zh_CN = {
   SETTING_PROXY_DESC: "Прокси действует только на игру, а не на весь лаунчер.",
 
   SETTING_TURN_ON_STEAM_PATCH: "Использовать патч Steam",
+  SETTING_DXMT_VERSION: en.SETTING_DXMT_VERSION,
+  SETTING_USE_D3D12: en.SETTING_USE_D3D12,
+  SETTING_ENABLE_DLSS: en.SETTING_ENABLE_DLSS,
 
   UPDATE_PROMPT_IGNORE: "Пропустить обновление",
   SETTING_CHECK_UPDATE: "Проверить обновления YAAGL",

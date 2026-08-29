@@ -46,6 +46,10 @@ import {
   VoicePackNames,
 } from "../launcher-info";
 import { getLatestAdvInfo, getLatestVersionInfo } from "../hyp-connect";
+import type { Github } from "../../../github";
+import createDXMTVersion from "./config/dxmt-version";
+import createD3D12 from "./config/d3d12";
+import createDLSS from "./config/dlss";
 
 // no need to check supported version
 // const CURRENT_SUPPORTED_VERSION = "3.0.0";
@@ -64,11 +68,13 @@ export async function createNAPChannelClient({
   locale,
   aria2,
   wine,
+  github,
 }: {
   server: Server;
   locale: Locale;
   aria2: Aria2;
   wine: Wine;
+  github: Github;
 }): Promise<ChannelClient> {
   const {
     background: { url: background },
@@ -326,7 +332,7 @@ export async function createNAPChannelClient({
         yield* checkAndDownloadReshade(aria2, wine, _gameInstallDir());
       }
       if (wine.attributes.renderBackend == "dxmt") {
-        yield* checkAndDownloadDXMT(aria2);
+        yield* checkAndDownloadDXMT(aria2, config.dxmtBuild);
       }
       yield* launchGameProgram({
         gameDir: _gameInstallDir(),
@@ -365,11 +371,17 @@ export async function createNAPChannelClient({
       const [BN] = await createBlockNet({ locale, config });
       const [SP] = await createSteamPatch({ locale, config });
       const [TF] = await createTimeoutFix({ locale, config });
+      const [DX] = await createDXMTVersion({ locale, config, github });
+      const [D3D12] = await createD3D12({ locale, config });
+      const [DLSS] = await createDLSS({ locale, config });
 
       return function () {
         return [
           "Game Version: ",
           gameCurrentVersion(),
+          <DX />,
+          <D3D12 />,
+          <DLSS />,
           <PO />,
           <RES />,
           <BN />,

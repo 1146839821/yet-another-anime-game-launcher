@@ -120,6 +120,9 @@ export const en: typeof zh_CN = {
     "The proxy only applies to the game, not to the whole launcher.",
 
   SETTING_TURN_ON_STEAM_PATCH: "Enable Steam Patch",
+  SETTING_DXMT_VERSION: "DXMT Version",
+  SETTING_USE_D3D12: "Use D3D12 to run the game",
+  SETTING_ENABLE_DLSS: "Enable DLSS",
 
   UPDATE_PROMPT_IGNORE: "Ignore Update",
   SETTING_CHECK_UPDATE: "Check for YAAGL Updates",

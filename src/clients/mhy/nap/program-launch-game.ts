@@ -38,7 +38,10 @@ export async function* launchGameProgram({
   await fixWebview(wine, server);
   await wine.setProps(config);
 
-  const args = [];
+  const args: string[] = [];
+  if (config.useD3D12) {
+    args.push("-use-d3d12");
+  }
   if (config.resolutionCustom) {
     args.push("-screen-width", config.resolutionWidth);
     args.push("-screen-height", config.resolutionHeight);
@@ -96,7 +99,7 @@ cd /d "${wine.toWinePath(gameDir)}"
     await wine.exec2(
       config.steamPatch ? "C:\\windows\\system32\\steam.exe" : "cmd",
       config.steamPatch
-        ? [wine.toWinePath(join(gameDir, gameExecutable))]
+        ? [wine.toWinePath(join(gameDir, gameExecutable)), ...args]
         : ["/c", `${wine.toWinePath(resolve("./config.bat"))} `],
       {
         MTL_HUD_ENABLED: config.metalHud ? "1" : "",
@@ -108,6 +111,7 @@ cd /d "${wine.toWinePath(gameDir)}"
               DXMT_LOG_PATH: yaaglDir,
               DXMT_CONFIG_FILE: join(yaaglDir, "dxmt.conf"),
               GST_PLUGIN_FEATURE_RANK: "atdec:MAX,avdec_h264:MAX",
+              ...(config.enableDLSS ? { DXMT_ENABLE_NVEXT: "1" } : {}),
             }
           : {
               WINEESYNC: "1",
